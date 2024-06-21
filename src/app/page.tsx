@@ -13,10 +13,6 @@ interface blogPost {
 const PageWrapper = styled.section`
   display: grid;
   grid-template-columns: 12.5% 75% 12.5%;
-  //background-image: linear-gradient(to bottom, white , lightblue);
-  //background-image: url("/img.png");
-  //background-size: contain;
-  //background-color: dimgray;
   background-color: white;
 `
 

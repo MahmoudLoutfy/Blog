@@ -2,10 +2,6 @@
 
 import Link from "next/link";
 import styled from "styled-components";
-import Montserrat from "next/font/google";
-import { Merriweather } from "next/font/google";
-import Neuton from "next/font/google";
-import { Roboto_Slab } from "next/font/google";
 
 interface blogPost {
     userId: number;

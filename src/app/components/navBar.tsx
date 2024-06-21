@@ -20,10 +20,9 @@ align-items: center;
 font-size: 20px;
 font-weight: 500;
 color: white;
-/* color: rgb(125, 98, 58);
 &:hover {
-    color: rgb(113, 85, 46)
-} */
+    color: rgb(0, 0, 0);
+} 
 `
 
 export default function NavBar() {
