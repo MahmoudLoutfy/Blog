@@ -74,6 +74,7 @@ export default function Form() {
     function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         console.log(formData);
+        setFormData({title:'',body:''})
       }
 
     return(
