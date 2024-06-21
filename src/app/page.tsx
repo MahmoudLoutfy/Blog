@@ -1,95 +1,61 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+'use client'
 
-export default function Home() {
+import Post from "./components/post";
+import styled from "styled-components";
+
+interface blogPost {
+  userId: number;
+  id: number;
+  title: string;
+  body: string;
+}
+
+const PageWrapper = styled.section`
+  display: grid;
+  grid-template-columns: 12.5% 75% 12.5%;
+  //background-image: linear-gradient(to bottom, white , lightblue);
+  //background-image: url("/img.png");
+  //background-size: contain;
+  //background-color: dimgray;
+  background-color: white;
+`
+
+const PageBody = styled.div`
+  grid-column: 2/3;
+`
+const Title = styled.h1`
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+`
+const Posts = styled.div`
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  margin: 10px 0px;
+`
+
+export default async function Home() {
+  const blogs = await getBlogPosts();
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+    <PageWrapper>
+      <PageBody>
+        <Title>Blog Posts</Title>
+        <Posts>
+          {blogs.map(blog => (
+            <Post key={blog.id} postInfo={blog} />
+          ))}
+        </Posts>
+      </PageBody>
+    </PageWrapper>
   );
+};
+
+async function getBlogPosts () : Promise<blogPost[]>
+{
+  await new Promise(resolve => setTimeout(resolve, 1000));
+  const res = await fetch('https://jsonplaceholder.typicode.com/posts');
+  const blogs: blogPost[] = await res.json();
+
+  return blogs;
 }
